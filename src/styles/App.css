@@ -51,6 +51,11 @@ color: #818c98;
   margin-top: 1em;
 }
 
+.img-container {
+  height: 120px;
+  margin: 10px 0px;
+  object-fit: contain;
+}
 #input-style {
   margin-bottom: 10px;
   outline: none;
