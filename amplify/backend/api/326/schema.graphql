@@ -1,7 +1,6 @@
 type Post @model
   @auth(rules: [
     { allow: owner },
-    { allow: public, operations: [read] },
     { allow: private, operations: [read] }
   ]) {
   id: ID!

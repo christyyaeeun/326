@@ -71,8 +71,8 @@ function Router({ user, signOut }) {
           <div className={`${darkMode && "dark-mode"}`}>
             <Toggle handleToggleDarkMode={setDarkMode} />
             <div className={contentStyle}>
+            <h1 className="hello">welcome {user.username} </h1>
               <Header />
-              <h5>welcome {user.username} </h5>
               <hr className={dividerStyle} />
               <Button
                 title="New Post"
