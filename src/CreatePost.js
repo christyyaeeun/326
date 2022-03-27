@@ -135,9 +135,9 @@ export default function CreatePost({
 // `
 
 // const imageStyle = css`
-//   height: 120px;
-//   margin: 10px 0px;
-//   object-fit: contain;
+  // height: 120px;
+  // margin: 10px 0px;
+  // object-fit: contain;
 // `
 
 // const containerStyle = css`

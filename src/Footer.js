@@ -3,7 +3,7 @@
 //       <div className="header-wrapper">
 //         <div class="container-fluid" id="nav">
 //         <small className="heading">our lives together</small>
-
+  
 //           <button
 //             onClick={() =>
 //               handleToggleDarkMode((previousDarkMode) => !previousDarkMode)
@@ -12,34 +12,29 @@
 //           >
 //             <img src="toggle-on-solid.svg" alt="" id="toggle-on"></img>
 //           </button>
-
+  
 //           </div>
 //       </div>
 //     );
 //   };
-
+  
 //   export default Header;
 
-import React from "react";
-import { css } from "@emotion/css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { css } from '@emotion/css';
+import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function Footer() {
+  
   return (
-    <div className={headerContainer}>
-      <Link to="/" className={linkStyle}>
-        All Posts
-      </Link>
-      <Link to="/myposts" className={linkStyle}>
-        My Posts
-      </Link>
+    <div className="footer">
+      <Link to="/" className={linkStyle}>home</Link>
+      <Link to="/myposts" className={linkStyle}>idk</Link>
     </div>
-  );
+  )
 }
 
-const headerContainer = css`
-  padding-top: 20px;
-`;
+
 
 const linkStyle = css`
   color: black;
@@ -47,6 +42,7 @@ const linkStyle = css`
   text-decoration: none;
   margin-right: 10px;
   \:hover {
-    color: #b8cbe0;
+    color: #709de1;
+
   }
-`;
+`

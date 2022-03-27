@@ -11,6 +11,7 @@ import "./styles/App.css";
 import Posts from "./Posts";
 import Post from "./Post";
 import Header from "./Header";
+import Footer from "./Footer";
 import Toggle from "./Toggle";
 
 import CreatePost from "./CreatePost";
@@ -71,7 +72,7 @@ function Router({ user, signOut }) {
           <div className={`${darkMode && "dark-mode"}`}>
             <Toggle handleToggleDarkMode={setDarkMode} />
             <div className={contentStyle}>
-            <h1 className="hello">welcome {user.username} </h1>
+              <h1 className="hello">welcome {user.username} </h1>
               <Header />
               <hr className={dividerStyle} />
               <Button
@@ -89,10 +90,13 @@ function Router({ user, signOut }) {
                 <Route path="/post/:id">
                   <Post />
                 </Route>
+               
               </Switch>
             </div>
+            <div className="signout-btn">
+              <button onClick={signOut}>Sign out</button>
+            </div>
           </div>
-          <button onClick={signOut}>Sign out</button>
         </HashRouter>
         {showOverlay && (
           <CreatePost
@@ -101,6 +105,9 @@ function Router({ user, signOut }) {
             posts={posts}
           />
         )}
+        <div className="footer-nav">
+          <Footer />
+        </div>
       </div>
     </>
   );
