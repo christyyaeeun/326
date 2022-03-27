@@ -1,0 +1,14 @@
+{
+  "resourceName": "olt326storage",
+  "policyUUID": "b89ba356",
+  "bucketName": "olt326s3bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
