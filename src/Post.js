@@ -46,7 +46,7 @@ const titleStyle = css`
 `
 
 const locationStyle = css`
-  color: #0070f3;
+  color: #b8cbe0;
   margin: 0;
 `
 
