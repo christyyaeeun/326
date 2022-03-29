@@ -6,6 +6,7 @@ import Button from './Button';
 import { v4 as uuid } from 'uuid';
 import { Storage, API, Auth } from 'aws-amplify';
 import { createPost } from './graphql/mutations';
+import { TextAreaField } from '@aws-amplify/ui-react';
 
 /* Initial state to hold form input, saving state */
 const initialState = {
@@ -13,7 +14,6 @@ const initialState = {
   description: '',
   image: {},
   file: '',
-  location: '',
   saving: false
 };
 
@@ -43,34 +43,13 @@ export default function CreatePost({
     updateFormState(currentState => ({ ...currentState, file: URL.createObjectURL(e.target.files[0]), image }))
   }
 
-  /* 4. Save the post  */
-  // async function save() {
-  //   try {
-  //     const { name, description, location, image } = formState;
-  //     if (!name || !description || !location || !image.name) return;
-  //     updateFormState(currentState => ({ ...currentState, saving: true }));
-  //     const postId = uuid();
-  //     const postInfo = { name, description, location, image: formState.image.name, id: postId };
-
-  //     await Storage.put(formState.image.name, formState.image.fileInfo);
-  //     await API.graphql({
-  //       query: createPost, variables: { input: postInfo }
-  //     });
-  //     updatePosts([...posts, { ...postInfo, image: formState.file }]);
-  //     updateFormState(currentState => ({ ...currentState, saving: false }));
-  //     updateOverlayVisibility(false);
-  //   } catch (err) {
-  //     console.log('error: ', err);
-  //   }
-  // }
-
   async function save() {
     try {
-      const { name, description, location, image } = formState;
-      if (!name || !description || !location || !image.name) return;
+      const { name, description, image } = formState;
+      if (!name || !description || !image.name) return;
       updateFormState(currentState => ({ ...currentState, saving: true }));
       const postId = uuid();
-      const postInfo = { name, description, location, image: formState.image.name, id: postId };
+      const postInfo = { name, description, image: formState.image.name, id: postId };
   
       await Storage.put(formState.image.name, formState.image.fileInfo);
       await API.graphql({
@@ -89,6 +68,8 @@ export default function CreatePost({
   
 
   return (
+    <div className="create-wrapper">
+
     <div className="create-post">
           <div className="create-header">
             olt
@@ -99,13 +80,8 @@ export default function CreatePost({
         className="post-name"
         onChange={onChangeText}
       />
-      <input id="input-style"
-        placeholder=" "
-        name="location"
-        className="post-loca"
-        onChange={onChangeText}
-      />
-      <input id="input-style"
+
+      <TextAreaField id="input-style"
         placeholder="Description"
         name="description"
         className="post-description"
@@ -122,6 +98,7 @@ export default function CreatePost({
       <Button id="cancel" type="cancel" title="cancel" onClick={() => updateOverlayVisibility(false)} /></div>
       { formState.saving && <p className={savingMessageStyle}>Saving post...</p> }
     </div>
+    </div>
   )
 }
 
@@ -135,9 +112,9 @@ export default function CreatePost({
 // `
 
 // const imageStyle = css`
-//   height: 120px;
-//   margin: 10px 0px;
-//   object-fit: contain;
+  // height: 120px;
+  // margin: 10px 0px;
+  // object-fit: contain;
 // `
 
 // const containerStyle = css`

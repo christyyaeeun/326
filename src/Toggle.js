@@ -5,7 +5,7 @@ import "./styles/App.css"
 const Toggle = ({ handleToggleDarkMode }) => {
   return (
       <div className="header-wrapper">
-        <div class="container-fluid" id="nav">
+        <div className="container-fluid" id="nav">
           <small className="heading">our lives together</small>
 
           <button

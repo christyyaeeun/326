@@ -6,7 +6,6 @@ export const onCreatePost = /* GraphQL */ `
     onCreatePost(owner: $owner) {
       id
       name
-      location
       description
       image
       owner
@@ -20,7 +19,6 @@ export const onUpdatePost = /* GraphQL */ `
     onUpdatePost(owner: $owner) {
       id
       name
-      location
       description
       image
       owner
@@ -34,7 +32,6 @@ export const onDeletePost = /* GraphQL */ `
     onDeletePost(owner: $owner) {
       id
       name
-      location
       description
       image
       owner

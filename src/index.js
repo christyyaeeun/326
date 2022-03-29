@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import '../src/styles/index.css';
+import './styles/App.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Amplify from 'aws-amplify'
 import config from './aws-exports'
-Amplify.configure(config)
+import { DataStore } from "@aws-amplify/datastore";
+import awsExports from "./aws-exports";
 
+Amplify.configure(config)
+DataStore.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>

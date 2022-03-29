@@ -9,13 +9,16 @@ export default function Posts({
 }) {
   return (
     <>
-      <h1>Posts</h1>
+      <h3>Posts</h3>
       {
         posts.map(post => (
           <Link to={`/post/${post.id}`} className={linkStyle} key={post.id}>
             <div key={post.id} className={postContainer}>
-              <h1 className={postTitleStyle}>{post.name}</h1>
-              <img alt="post" className={imageStyle} src={post.image} />
+              <h1 className="title" >{post.name}</h1>
+              <img alt="post" id="post-img" className={imageStyle} src={post.image} />
+              <p>{post.owner}</p>
+              <p>{post.createdAt}</p>
+
             </div>
           </Link>
         ))
@@ -24,10 +27,7 @@ export default function Posts({
   )
 }
 
-const postTitleStyle = css`
-  margin: 15px 0px;
-  color: #0070f3;
-`
+
 
 const linkStyle = css`
   text-decoration: none;
@@ -39,7 +39,7 @@ const postContainer = css`
   border: 1px solid #ddd;
   margin-bottom: 20px;
   \:hover {
-    border-color: #0070f3;
+    border-color: #a6bbd3;
   }
 `
 

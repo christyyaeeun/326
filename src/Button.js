@@ -12,7 +12,7 @@ export default function Button({
 }
 
 const buttonStyle = type => css`
-  background-color: ${type === "action" ? "#2a2a2c" : "#96addb"};
+  background-color: ${type === "action" ?  "#96addb" : "#2a2a2c"};
   height: 40px;
   width: 100px;
   font-weight: 600;
