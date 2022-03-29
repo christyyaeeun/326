@@ -5,7 +5,7 @@ export default function Button({
   title, onClick, type = "action"
 }) {
   return (
-    <button className={buttonStyle(type)} onClick={onClick}>
+    <button id="btn-new" className={buttonStyle(type)} onClick={onClick}>
       { title }
     </button>
   )
@@ -13,16 +13,7 @@ export default function Button({
 
 const buttonStyle = type => css`
   background-color: ${type === "action" ?  "#96addb" : "#2a2a2c"};
-  height: 40px;
-  width: 100px;
-  font-weight: 600;
-  font-size: 16px;
-  color: white;
-  border-radius: 4px;
-  outline: none;
-  border: none;
-  margin-top: 15px;
-  cursor: pointer;
+  
   \:hover {
     background-color: #363636;
   }

@@ -6,7 +6,7 @@ const Toggle = ({ handleToggleDarkMode }) => {
   return (
       <div className="header-wrapper">
         <div className="container-fluid" id="nav">
-          <small className="heading">our lives together</small>
+          <small className="heading">OLT</small>
 
           <button
             onClick={() =>

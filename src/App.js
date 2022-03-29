@@ -93,13 +93,16 @@ useEffect(() => {
           <div className={`${darkMode && "dark-mode"}`}>
             <Toggle handleToggleDarkMode={setDarkMode} />
             <div className={contentStyle}>
-              <p className="hello">welcome {user.username} </p>
+              <p className="hello">Welcome {user.username} </p>
               <Header />
+              <div className="divider">
               <hr className={dividerStyle} />
-              <Button
+              </div>
+              <div className="new-post">
+              <Button id="new-post"
                 title="New Post"
                 onClick={() => updateOverlayVisibility(true)}
-              />
+              /></div>
               <Switch>
                 <Route exact path="/">
                   <Posts posts={posts} />
@@ -133,12 +136,11 @@ useEffect(() => {
 
 
 const dividerStyle = css`
-  margin-top: 15px;
+  margin-top: 5px;
 `;
 
 const contentStyle = css`
   min-height: calc(100vh - 45px);
-  padding: 0px 40px;
 `;
 
 export default withAuthenticator(Router);

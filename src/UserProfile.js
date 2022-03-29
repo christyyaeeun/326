@@ -2,16 +2,13 @@ import { Profile } from "./ui-components";
 // import PostBtn from "./PostBtn";
 
 export default function UserProfile() {
-    return (
-      <>
-        <div>Profile</div>
-        <div className="profile-container">
-        <Profile />
-
+  return (
+    <>
+      <div className="profile-container">
+        <div className="profile">
+          <Profile />
         </div>
-        {/* <PostBtn /> */}
-      </>
-    );
-  }
-
-
+      </div>
+    </>
+  );
+}
