@@ -10,7 +10,6 @@ export default function Posts({ posts = [] }) {
     <>
       <div className="timeline">
         {posts.map((post) => (
-          
           <Link to={`/post/${post.id}`} className={linkStyle} key={post.id}>
             <div key={post.id} className={postContainer}>
               <h1 className="title">{post.name}</h1>
@@ -20,7 +19,12 @@ export default function Posts({ posts = [] }) {
                 className={imageStyle}
                 src={post.image}
               />
-              <p>@{post.owner}</p>
+               <p>
+                @{post.owner}
+              </p>
+              <p>{post.description}</p>
+
+             
               <small id="date">
                 {format(new Date(post.createdAt), "MM/dd/yyyy")}
               </small>

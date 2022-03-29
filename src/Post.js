@@ -5,8 +5,7 @@ import { css } from "@emotion/css";
 import { useParams } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { getPost } from "./graphql/queries";
-import { format} from 'date-fns';
-
+import { format } from "date-fns";
 
 export default function Post() {
   const [loading, updateLoading] = useState(true);
@@ -40,19 +39,21 @@ export default function Post() {
   console.log("post: ", post);
 
   return (
-    <>
-      <h1 className={titleStyle}>{post.name}</h1>
-      <p>{post.description}</p>
-      <img alt="post" src={post.image} className={imageStyle} />
-      <p>@{post.username}</p>
-      <small>{format(new Date(post.createdAt), "MM/dd/yyyy hh:mm a")}</small>
-    </>
+    <div>
+      <div className="post-wrapper">
+        <h1 className="title">{post.name}</h1>
+        <p>{post.description}</p>
+        <img alt="post" src={post.image} className={imageStyle} />
+        <p>@{post.username}</p>
+        <small>{format(new Date(post.createdAt), "MM/dd/yyyy")}</small>
+      </div>
+    </div>
   );
 }
 
-const titleStyle = css`
-  margin-bottom: 7px;
-`;
+// const titleStyle = css`
+//   margin-bottom: 7px;
+// `;
 
 const imageStyle = css`
   max-width: 500px;

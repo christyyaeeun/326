@@ -35,7 +35,7 @@ export const listPosts = /* GraphQL */ `
   }
 `;
 export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
+  query getUser($id: ID!) {
     getUser(id: $id) {
       id
       username

@@ -85,7 +85,17 @@ export default function CreatePost({
   return (
     <div className="create-wrapper">
       <div className="create-post">
-        <div className="create-header">olt</div>
+        <div className="cancel-wrap">
+          <Button
+            className="cancel"
+            type="cancel"
+            title="cancel"
+            onClick={() => updateOverlayVisibility(false)}
+          />
+        </div>
+        <div className="create-header">
+          <p>olt</p>
+        </div>
         <input
           id="input-style"
           placeholder="name"
@@ -109,12 +119,6 @@ export default function CreatePost({
         )}
         <div className="btn-container">
           <Button id="submit" title="submit" onClick={save} />
-          <Button
-            id="cancel"
-            type="cancel"
-            title="cancel"
-            onClick={() => updateOverlayVisibility(false)}
-          />
         </div>
         {formState.saving && (
           <p className={savingMessageStyle}>Saving post...</p>
