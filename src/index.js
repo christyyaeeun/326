@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../src/styles/index.css';
 import './styles/App.css'
+import { ColorModeScript } from '@chakra-ui/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Amplify from 'aws-amplify'
@@ -14,6 +14,7 @@ DataStore.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>
+    <ColorModeScript />
     <App />
   </React.StrictMode>,
   document.getElementById('root')

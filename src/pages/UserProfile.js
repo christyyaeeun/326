@@ -1,4 +1,4 @@
-import { Profile } from "./ui-components";
+import { Profile } from "../ui-components";
 // import PostBtn from "./PostBtn";
 
 export default function UserProfile() {
@@ -6,7 +6,6 @@ export default function UserProfile() {
     <>
       <div className="profile-container">
         <div className="profile">
-          <Profile />
         </div>
       </div>
     </>

@@ -3,29 +3,38 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { css } from "@emotion/css";
 import { API, Storage, Auth } from "aws-amplify";
-
-import "@aws-amplify/ui-react/styles.css";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { listPosts } from "./graphql/queries";
 import "./styles/App.css";
-import Posts from "./Posts";
-import Post from "./Post";
-import Header from "./Header";
-import Toggle from "./Toggle";
+import Posts from "./components/entry/Posts";
+import Post from "./components/entry/Post";
 import { onCreatePost } from './graphql/subscriptions';
-import UserProfile from './UserProfile';
-import CreatePost from "./CreatePost";
-import Button from "./Button";
+import UserProfile from './pages/UserProfile';
+import CreatePost from "./components/entry/CreatePost";
+import Btn from "./components/Btn";
+import Home from "./pages/Home";
+import { Link } from "react-router-dom";
+import Navigator from "./components/Navigator";
+import Paired from "./pages/paired/Paired";
+import Explore from './pages/Explore'
+import { LoveLanguage } from './components/cards/LoveLanguage';
+import { Communication } from './components/cards/Communication';
+import { Growth } from './components/cards/Growth';
+import { Conflict } from './components/cards/Conflict';
 
-
+import {
+  Container, Box, Flex, Text, Spacer, ModalOverlay,
+} from '@chakra-ui/react'
 
 function Router({ user, signOut }) {
-
+const userDetails = {name: ''}
   /* create a couple of pieces of initial state */
-  const [showOverlay, updateOverlayVisibility] = useState(false);
-  const [posts, updatePosts] = useState([]);
-  const [userPosts, updateUserPosts] = useState([]);
+  const [ showOverlay, updateOverlayVisibility ] = useState(false);
+  const [ name, setName ] = useState('');
+  const [ posts, updatePosts ] = useState([]);
+  const [ userPosts, updateUserPosts ] = useState([]);
+  const [ isOpen, setIsOpen ] = useState(false);
 
   /* fetch posts when component loads */
   useEffect(() => {
@@ -36,31 +45,34 @@ function Router({ user, signOut }) {
   }, []);
   async function checkUser() {
     const user = await Auth.currentAuthenticatedUser();
+    const userDetails = {name:'', username:''}
     console.log("user:", user);
     console.log("user attributes: ", user.attributes);
+    setName(user.username);
   }
 
   async function fetchPosts() {
     /* query the API, ask for 100 items */
-    let postData = await API.graphql({query: listPosts, variables: { limit: 100 },
+    let postData = await API.graphql({
+      query: listPosts, variables: { limit: 100 },
     });
     let postsArray = postData.data.listPosts.items;
-    
+
     /* map over the image keys in the posts array, get signed image URLs for each image */
     postsArray = await Promise.all(
-      
+
       postsArray.map(async (post) => {
         const imageKey = await Storage.get(post.image);
-        
+
         post.image = imageKey;
         return post;
       })
     );
     /* update the posts array in the local state */
-    
+
     setPostState(postsArray);
   }
- 
+
 
   async function setPostState(postsArray) {
     const user = await Auth.currentAuthenticatedUser();
@@ -72,75 +84,82 @@ function Router({ user, signOut }) {
 
   function subscribe() {
     API.graphql({
-        query: onCreatePost
+      query: onCreatePost
     })
-    .subscribe(() => fetchPosts())
-}
+      .subscribe(() => fetchPosts())
+  }
 
-useEffect(() => {
-  fetchPosts();
-  const subscription = subscribe();
-  return () => subscription();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  useEffect(() => {
+    fetchPosts();
+    const subscription = subscribe();
+    return () => subscription();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const [darkMode, setDarkMode] = useState(false);
+  function onClose() {
+    setIsOpen(false);
+  }
 
   return (
     <>
-      <div className="container">
-        <HashRouter>
-          <div className={`${darkMode && "dark-mode"}`}>
-            <Toggle handleToggleDarkMode={setDarkMode} />
-            <div className={contentStyle}>
-              <p className="hello">Welcome {user.username} </p>
-              <Header />
-              <div className="divider">
-              <hr className={dividerStyle} />
-              </div>
-              <div className="new-post">
-              <Button id="new-post"
-                title="New Post"
-                onClick={() => updateOverlayVisibility(true)}
-              /></div>
+      <ChakraProvider theme={ theme }>
+        <div>
+          <HashRouter>
+            <Navigator />
+            <Container>
+              <Flex alignItems='center' py='3'>
+                <Spacer />
+                <Btn id="new-post"
+                  title="+"
+                  onClick={ () => {
+                    updateOverlayVisibility(true)
+                  } }
+                />
+              </Flex>
+
+
               <Switch>
                 <Route exact path="/">
-                  <Posts posts={posts} />
+                  <Home />
                 </Route>
+                <Route exact path="/posts">
+                  <Posts posts={ posts } />
+                </Route>
+
+
+                <Route exact path="/paired">
+                  <Paired />
+                </Route>
+                <Route exact path="/Explore">
+                  <Explore />
+                </Route>
+
+
                 <Route exact path="/userposts">
-                  <Posts posts={userPosts} />
+                  <Posts posts={ userPosts } />
                 </Route>
                 <Route path="/post/:id">
                   <Post />
                 </Route>
-                <Route component={UserProfile} />
+                <Route component={ UserProfile } />
+
               </Switch>
-            </div>
-            <div className="signout-wrapper">
-              <button className="signout-btn" onClick={signOut}>Sign out</button>
-            </div>
-          </div>
-        </HashRouter>
-        {showOverlay && (
-          <CreatePost
-            updateOverlayVisibility={updateOverlayVisibility}
-            updatePosts={setPostState}
-            posts={posts}
-          />
-        )}
-      
-      </div>
+            </Container>
+          </HashRouter>
+
+          { showOverlay && (
+            <CreatePost
+              updateOverlayVisibility={ updateOverlayVisibility }
+              updatePosts={ setPostState }
+              posts={ posts }
+
+            />
+          ) }
+        </div>
+      </ChakraProvider >
     </>
   );
 }
 
-
-const dividerStyle = css`
-  margin-top: 5px;
-`;
-
-const contentStyle = css`
-  min-height: calc(100vh - 45px);
-`;
 
 export default withAuthenticator(Router);

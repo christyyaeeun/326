@@ -1,15 +1,16 @@
 // Post.js
-
 import React, { useState, useEffect } from "react";
-import { css } from "@emotion/css";
 import { useParams } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
-import { getPost } from "./graphql/queries";
+import { getPost } from "../../graphql/queries";
 import { format } from "date-fns";
+import { BackButton } from "../BackButton";
+import { Box, Container, Image, Text, Flex } from '@chakra-ui/react'
+
 
 export default function Post() {
-  const [loading, updateLoading] = useState(true);
-  const [post, updatePost] = useState(null);
+  const [ loading, updateLoading ] = useState(true);
+  const [ post, updatePost ] = useState(null);
 
   const { id } = useParams();
 
@@ -39,25 +40,22 @@ export default function Post() {
   console.log("post: ", post);
 
   return (
-    <div>
-      <div className="post-wrapper">
-        <h1 className="title">{post.name}</h1>
-        <p>{post.description}</p>
-        <img alt="post" src={post.image} className={imageStyle} />
-        <p>@{post.username}</p>
-        <small>{format(new Date(post.createdAt), "MM/dd/yyyy")}</small>
-      </div>
-    </div>
+    <>
+      <BackButton />
+      <Container display='flex' justifyContent='center'>
+
+        <Box w='350px' p='3' boxShadow='xl' borderRadius='md'>
+          <Image pt='2' alt="post" src={ post.image } />
+
+          <Text my='2' fontSize='1.1rem' className="title">{ post.name }</Text>
+          <Text my='1' fontSize='.9rem'>{ post.description }</Text>
+          {/* <Text>@{ post.username }</Text> */}
+          <small>{ format(new Date(post.createdAt), "MM/dd/yyyy") }</small>
+
+        </Box>
+
+      </Container>
+    </>
   );
 }
 
-// const titleStyle = css`
-//   margin-bottom: 7px;
-// `;
-
-const imageStyle = css`
-  max-width: 500px;
-  @media (max-width: 500px) {
-    width: 100%;
-  }
-`;
